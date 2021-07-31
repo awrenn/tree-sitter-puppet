@@ -1,0 +1,103 @@
+================================================================================
+Class Definition
+================================================================================
+
+class profile::kerminator {
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (identifier)
+    (class_definition_block)))
+
+================================================================================
+Class Definition Nested
+================================================================================
+
+class profile::kerminator {
+  class profile::kerminator::triple {
+
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (identifier)
+    (class_definition_block
+      (class_definition
+        (identifier)
+        (class_definition_block)))))
+
+================================================================================
+Class Definition Nested Resource
+================================================================================
+
+class profile::kerminator {
+  class { 'profile::kerminator::triple': 
+
+  }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (identifier)
+    (class_definition_block
+      (resource_declaration
+        (resource_block
+          (resource_config
+            (string)))))))
+
+================================================================================
+Class Definition - Parameters
+================================================================================
+
+
+class profile::kerminator (
+        Boolean $is_a_frog,
+){
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (identifier)
+    (standard_parameter_list
+      (parameter_list
+        (parameter
+          (type
+            (capital_identifier))
+          (identifier))))
+    (class_definition_block)))
+
+================================================================================
+Class Definition - Parameters - Default
+================================================================================
+
+
+class profile::kerminator (
+        Boolean $is_a_frog = true,
+){
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (identifier)
+    (standard_parameter_list
+      (parameter_list
+        (parameter
+          (type
+            (capital_identifier))
+          (identifier)
+          (default_param_value
+            (bool)))))
+    (class_definition_block)))
+

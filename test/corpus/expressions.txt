@@ -1,0 +1,172 @@
+================================================================================
+Regex Operator
+================================================================================
+
+  if ( $pgversion =~ /9.[56]/ )
+  {
+
+  }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    (if_block
+      (binary_expression
+        (identifier)
+        (regex)))))
+
+================================================================================
+Newline addition
+================================================================================
+
+$foo = "bar"
++
+"baz"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (binary_expression
+    (identifier)
+    (binary_expression
+      (string)
+      (string))))
+
+================================================================================
+Crazy Chain - Build Up
+================================================================================
+
+$output = {
+    $foo => "bar",
+  }.map |$key, $value| { "\"${key}\": \"${value}\"" }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (binary_expression
+    (identifier)
+    (hash
+      (hash_pair
+        (identifier)
+        (string)))
+    (field
+      (immediate_identifier))
+    (call
+      (lambda
+        (parameter_list
+          (parameter
+            (identifier))
+          (parameter
+            (identifier)))
+        (string
+          (escape_sequence)
+          (interpolation_expression
+            (interpolation_identifier
+              (identifier)))
+          (escape_sequence)
+          (escape_sequence)
+          (interpolation_expression
+            (interpolation_identifier
+              (identifier)))
+          (escape_sequence))))))
+
+================================================================================
+Crazy Chain - Build Up Part 2
+================================================================================
+
+$output = {
+    $foo => "bar",
+  }.map |$key, $value| { "\"${key}\": \"${value}\"" }
+    .join(',')
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (binary_expression
+    (identifier)
+    (hash
+      (hash_pair
+        (identifier)
+        (string)))
+    (field
+      (immediate_identifier))
+    (call
+      (lambda
+        (parameter_list
+          (parameter
+            (identifier))
+          (parameter
+            (identifier)))
+        (string
+          (escape_sequence)
+          (interpolation_expression
+            (interpolation_identifier
+              (identifier)))
+          (escape_sequence)
+          (escape_sequence)
+          (interpolation_expression
+            (interpolation_identifier
+              (identifier)))
+          (escape_sequence))))
+    (field
+      (immediate_identifier))
+    (call
+      (function_parameters
+        (string)))))
+
+================================================================================
+Crazy Chain
+================================================================================
+
+$output = {
+    $foo => "bar",
+  }.map |$key, $value| { "\"${key}\": \"${value}\"" }
+    .join(',')
+    .with |$string| { "'{ ${string} }'" }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (binary_expression
+    (identifier)
+    (hash
+      (hash_pair
+        (identifier)
+        (string)))
+    (field
+      (immediate_identifier))
+    (call
+      (lambda
+        (parameter_list
+          (parameter
+            (identifier))
+          (parameter
+            (identifier)))
+        (string
+          (escape_sequence)
+          (interpolation_expression
+            (interpolation_identifier
+              (identifier)))
+          (escape_sequence)
+          (escape_sequence)
+          (interpolation_expression
+            (interpolation_identifier
+              (identifier)))
+          (escape_sequence))))
+    (field
+      (immediate_identifier))
+    (call
+      (function_parameters
+        (string)))
+    (field
+      (immediate_identifier))
+    (call
+      (lambda
+        (parameter_list
+          (parameter
+            (identifier)))
+        (string
+          (interpolation_expression
+            (interpolation_identifier
+              (identifier))))))))

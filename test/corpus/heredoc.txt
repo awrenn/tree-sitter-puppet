@@ -1,0 +1,125 @@
+================================================================================
+Heredoc Exp
+================================================================================
+
+@("END")
+
+ |-END
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (heredoc_interpolate
+    (heredoc_body)
+    (heredoc_trim_border)))
+
+================================================================================
+Heredoc Trim
+================================================================================
+
+$foo = @("END"),
+
+       |-END
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (binary_expression
+    (identifier)
+    (heredoc_interpolate
+      (heredoc_body)
+      (heredoc_trim_border))))
+
+================================================================================
+Heredoc Fixed
+================================================================================
+
+$foo = @(EOT)
+
+       | EOT
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (binary_expression
+    (identifier)
+    (heredoc_fixed
+      (heredoc_body)
+      (heredoc_trim_border))))
+
+================================================================================
+Heredoc Fixed Trim
+================================================================================
+
+$foo = @(END)
+
+       |- END
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (binary_expression
+    (identifier)
+    (heredoc_fixed
+      (heredoc_body)
+      (heredoc_trim_border))))
+
+================================================================================
+Heredoc Fixed Trim
+================================================================================
+
+  $log_config = @("END")
+    log_format logstash_json ${json_log_format};
+    log_format downloadserver_logstash_json ${downloadserver_json_log_format};
+    | END
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (binary_expression
+    (identifier)
+    (heredoc_interpolate
+      (heredoc_body)
+      (heredoc_trim_border))))
+
+================================================================================
+Heredoc Debugging
+================================================================================
+    $diamond_log_conf = @(EOT)
+      :programname, startswith, "python" {
+        stop
+      }
+      | EOT
+--------------------------------------------------------------------------------
+
+(source_file
+  (binary_expression
+    (identifier)
+    (heredoc_fixed
+      (heredoc_body)
+      (heredoc_trim_border))))
+
+================================================================================
+Heredoc Known Issue
+================================================================================
+  $foo = bar(@(END)).map |$r| { $r["baz"] }
+      test string
+    |-END
+--------------------------------------------------------------------------------
+
+(source_file
+  (binary_expression
+    (identifier)
+    (identifier)
+    (call
+     (function_parameters
+      (heredoc_header)))
+      (field
+        (call
+          (lambda
+            (identifier)
+            (identifier
+              (index (string))))))
+      (heredoc_fixed
+      (heredoc_body)
+      (heredoc_trim_border))))

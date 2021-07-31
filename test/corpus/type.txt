@@ -1,0 +1,97 @@
+================================================================================
+Nested Resource Type
+================================================================================
+
+Resource[File] { "foo":
+    
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (resource_declaration
+    (type
+      (capital_identifier)
+      (index
+        (type
+          (capital_identifier))))
+    (resource_block
+      (resource_config
+        (string)))))
+
+================================================================================
+Nested Resource String Type
+================================================================================
+
+Resource['file'] { "foo":
+    
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (resource_declaration
+    (type
+      (capital_identifier)
+      (index
+        (string)))
+    (resource_block
+      (resource_config
+        (string)))))
+
+================================================================================
+Nested Resource Spaces Type
+================================================================================
+
+Resource[ File ] { "foo":
+    
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (resource_declaration
+    (type
+      (capital_identifier)
+      (index
+        (type
+          (capital_identifier))))
+    (resource_block
+      (resource_config
+        (string)))))
+
+================================================================================
+Resource Collection
+================================================================================
+
+User <| title == "Kermit" |>
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (resource_collector
+    (type
+      (capital_identifier))
+    (collector_expression
+      (collector_match_expression
+        (identifier)
+        (eq)
+        (string)))))
+
+================================================================================
+Resource Collection - Complex name
+================================================================================
+
+User::Foo <| title == "Andrew" |>
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (resource_collector
+    (type
+      (capital_identifier))
+    (collector_expression
+      (collector_match_expression
+        (identifier)
+        (eq)
+        (string)))))

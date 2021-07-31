@@ -1,0 +1,143 @@
+================================================================================
+Basic if
+================================================================================
+
+if $foo == "bar" {
+
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    (if_block
+      (binary_expression
+        (identifier)
+        (string)))))
+
+================================================================================
+Basic if else
+================================================================================
+
+if $foo == "baz" {
+
+} else {
+
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    (if_block
+      (binary_expression
+        (identifier)
+        (string)))
+    (else_block)))
+
+================================================================================
+Basic if elsif else
+================================================================================
+
+if $foo == "baz" {
+
+} elsif $baz {
+
+} else {
+
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    (if_block
+      (binary_expression
+        (identifier)
+        (string)))
+    (elsif_block
+      (identifier))
+    (else_block)))
+
+================================================================================
+Basic case
+================================================================================
+
+case $foo {
+    'bar': {}
+} 
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (case_statement
+    (identifier)
+    (string)))
+
+================================================================================
+If in case
+================================================================================
+
+case $foo {
+    'bar': {
+        if $baz {
+
+        } elsif $drat {
+            
+        }
+    }
+} 
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (case_statement
+    (identifier)
+    (string)
+    (if_statement
+      (if_block
+        (identifier))
+      (elsif_block
+        (identifier)))))
+
+================================================================================
+Tricky Case
+================================================================================
+
+  case $facts['virtual'] {
+    'kvm': {
+      if $facts['whereami'] =~ /^linode/ {
+        $disk_id = 'sda'
+      }
+      elsif $facts['whereami'] == 'aws_internal_net_vpc' {
+        $disk_id = 'nvme0n1'
+      }
+    }
+  }
+--------------------------------------------------------------------------------
+
+(source_file
+  (case_statement
+    (identifier)
+    (index
+      (string))
+    (string)
+    (if_statement
+      (if_block
+        (binary_expression
+          (identifier)
+          (index
+            (string))
+          (regex))
+        (binary_expression
+          (identifier)
+          (string)))
+      (elsif_block
+        (binary_expression
+          (identifier)
+          (index
+            (string))
+          (string))
+        (binary_expression
+          (identifier)
+          (string))))))

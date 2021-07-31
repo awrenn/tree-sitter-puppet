@@ -1,0 +1,241 @@
+================================================================================
+Basic Resource Definition
+================================================================================
+
+file { "/etc/ssl":
+    ensure => true,
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (resource_declaration
+    (identifier)
+    (resource_block
+      (resource_config
+        (string)
+        (resource_attribute
+          (identifier)
+          (bool))))))
+
+================================================================================
+Class Resource Interaction
+================================================================================
+
+class profile::kerminator {
+    file { "/etc/ssl":
+        ensure => true,
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (identifier)
+    (class_definition_block
+      (resource_declaration
+        (identifier)
+        (resource_block
+          (resource_config
+            (string)
+            (resource_attribute
+              (identifier)
+              (bool))))))))
+
+================================================================================
+Multiple Resource Definition
+================================================================================
+
+file { 
+    "/etc/ssl":
+     ensure => true,
+    ;
+    "/etc/ssh":
+     ensure => true,
+    ;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (resource_declaration
+    (identifier)
+    (resource_block
+      (resource_config
+        (string)
+        (resource_attribute
+          (identifier)
+          (bool)))
+      (resource_config
+        (string)
+        (resource_attribute
+          (identifier)
+          (bool))))))
+
+================================================================================
+Single Resource Definition
+================================================================================
+
+file { 
+    "/etc/ssl":
+     ensure => true,
+    ;
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (resource_declaration
+    (identifier)
+    (resource_block
+      (resource_config
+        (string)
+        (resource_attribute
+          (identifier)
+          (bool))))))
+
+================================================================================
+Single Line Definition
+================================================================================
+
+ssh::allowgroup   { 'chatops': }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (resource_declaration
+    (identifier)
+    (resource_block
+      (resource_config
+        (string)))))
+
+================================================================================
+Order Single Line Definition
+================================================================================
+
+ssh::allowgroup   { 'chatops': } 
+-> 
+ssh::allowgroup   { 'chatops': }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (binary_expression
+    (resource_declaration
+      (identifier)
+      (resource_block
+        (resource_config
+          (string))))
+    (resource_declaration
+      (identifier)
+      (resource_block
+        (resource_config
+          (string))))))
+
+================================================================================
+Resource + Type
+================================================================================
+
+exec { 'make dhkey web':
+  require => File[$ssl::params::key_dir],
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (resource_declaration
+    (identifier)
+    (resource_block
+      (resource_config
+        (string)
+        (resource_attribute
+          (identifier)
+          (type
+            (capital_identifier)
+            (index
+              (identifier))))))))
+
+================================================================================
+Resource + Type Extra
+================================================================================
+
+exec { 'make dhkey web':
+  require => File::Bonus["foo", "bar"],
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (resource_declaration
+    (identifier)
+    (resource_block
+      (resource_config
+        (string)
+        (resource_attribute
+          (identifier)
+          (type
+            (capital_identifier)
+            (index
+              (string)
+              (string))))))))
+
+================================================================================
+Resource RePro
+================================================================================
+
+class profile::boot::pxe::web(
+  String[1] $canonical_fqdn = $facts['networking']['fqdn'],
+  String[1] $www_root = '/webroot'
+) {}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_definition
+    (identifier)
+    (standard_parameter_list
+      (parameter_list
+        (parameter
+          (type
+            (capital_identifier)
+            (index
+              (integer)))
+          (identifier)
+          (default_param_value
+            (identifier)
+            (index
+              (string))
+            (index
+              (string))))
+        (parameter
+          (type
+            (capital_identifier)
+            (index
+              (integer)))
+          (identifier)
+          (default_param_value
+            (string)))))
+    (class_definition_block)))
+
+================================================================================
+Default attribute
+================================================================================
+
+  ssh_authorized_key {
+    default:
+      user    => 'root',
+    ;
+ }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (resource_declaration
+    (identifier)
+    (resource_block
+      (resource_config
+        (identifier)
+        (resource_attribute
+          (identifier)
+          (string))))))
